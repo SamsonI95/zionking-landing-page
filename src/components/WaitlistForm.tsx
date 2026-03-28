@@ -1,24 +1,39 @@
 import { useState, type FormEvent } from "react";
 
 const WaitlistForm = () => {
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setStatus("submitting");
+    setErrorMessage(null);
+
     const form = e.currentTarget;
     const formData = new FormData(form);
 
     fetch("/", {
       method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData as unknown as Record<string, string>).toString(),
+      body: formData,
     })
-      .then(() => setSubmitted(true))
-      .catch(() => setSubmitted(true)); // still show success for UX
+      .then(async (res) => {
+        if (!res.ok) {
+          const body = await res.text();
+          setStatus("error");
+          setErrorMessage(body || `Request failed with status ${res.status}`);
+          return;
+        }
 
-    e.preventDefault();
+        setStatus("success");
+      })
+      .catch((error) => {
+        setStatus("error");
+        setErrorMessage(error?.message ?? "Network error");
+      });
   };
 
-  if (submitted) {
+  if (status === "success") {
     return (
       <div className="text-center py-12">
         <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
@@ -36,11 +51,14 @@ const WaitlistForm = () => {
     <form
       name="waitlist"
       method="POST"
+      action="/"
       data-netlify="true"
+      data-netlify-honeypot="bot-field"
       onSubmit={handleSubmit}
       className="max-w-md mx-auto space-y-5 text-left"
     >
       <input type="hidden" name="form-name" value="waitlist" />
+      <input type="hidden" name="bot-field" />
 
       <div>
         <label htmlFor="firstName" className="block text-sm font-medium text-foreground mb-1.5">
@@ -137,11 +155,22 @@ const WaitlistForm = () => {
         </div>
       </div>
 
+      {status === "error" && (
+        <div className="rounded-lg border border-destructive/20 bg-destructive/5 p-4 text-sm text-destructive">
+          {errorMessage || "Something went wrong. Please try again."}
+        </div>
+      )}
+
       <button
         type="submit"
-        className="w-full rounded-xl bg-primary px-6 py-4 text-base font-semibold text-primary-foreground transition-all hover:bg-primary-dark hover:shadow-lg hover:shadow-primary/25"
+        disabled={status === "submitting"}
+        className={`w-full rounded-xl px-6 py-4 text-base font-semibold text-primary-foreground transition-all hover:shadow-lg hover:shadow-primary/25 ${
+          status === "submitting"
+            ? "bg-primary/70 cursor-not-allowed"
+            : "bg-primary hover:bg-primary-dark"
+        }`}
       >
-        Join the Waitlist
+        {status === "submitting" ? "Submitting..." : "Join the Waitlist"}
       </button>
     </form>
   );
