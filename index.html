@@ -23,7 +23,7 @@
     !function (f, b, e, v, n, t, s) {
       if (f.fbq) return; n = f.fbq = function () {
         n.callMethod ?
-        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
       };
       if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
       n.queue = []; t = b.createElement(e); t.async = !0;
@@ -34,12 +34,12 @@
     fbq('init', '1623332852207481');
     fbq('track', 'PageView');
   </script>
-  <noscript><img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=1623332852207481&ev=PageView&noscript=1" /></noscript>
   <!-- End Meta Pixel Code -->
 </head>
 
 <body>
+  <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1623332852207481&ev=PageView&noscript=1" /></noscript>
   <!-- A hidden form is required for Netlify to detect the React form at build time -->
   <form name="waitlist" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
     <input type="hidden" name="form-name" value="waitlist" />
