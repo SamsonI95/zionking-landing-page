@@ -5,7 +5,7 @@ const WaitlistForm = () => {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setStatus("submitting");
@@ -13,30 +13,46 @@ const WaitlistForm = () => {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries()) as Record<string, string>;
 
     // Track Meta Pixel Event
     trackStandardEvent('Lead', {
       content_name: 'Waitlist Signup',
     });
 
-    fetch("/", {
-      method: "POST",
-      body: formData,
-    })
-      .then(async (res) => {
-        if (!res.ok) {
-          const body = await res.text();
-          setStatus("error");
-          setErrorMessage(body || `Request failed with status ${res.status}`);
-          return;
-        }
-
-        setStatus("success");
-      })
-      .catch((error) => {
-        setStatus("error");
-        setErrorMessage(error?.message ?? "Network error");
+    try {
+      const emailResponse = await fetch("/.netlify/functions/waitlist-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: data.email,
+          name: data.firstName || data.name || "",
+        }),
       });
+
+      const netlifyResponse = await fetch("/", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!emailResponse.ok || !netlifyResponse.ok) {
+        const emailError = await emailResponse.text().catch(() => "");
+        const netlifyError = await netlifyResponse.text().catch(() => "");
+
+        setStatus("error");
+        setErrorMessage(
+          emailError || netlifyError || "Request failed. Please try again."
+        );
+        return;
+      }
+
+      setStatus("success");
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage(error?.message ?? "Network error");
+    }
   };
 
   if (status === "success") {
