@@ -15,10 +15,7 @@ const WaitlistForm = () => {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries()) as Record<string, string>;
 
-    // Track Meta Pixel Event
-    trackStandardEvent('Lead', {
-      content_name: 'Waitlist Signup',
-    });
+
 
     try {
       const emailResponse = await fetch("/.netlify/functions/waitlist-email", {
@@ -49,6 +46,14 @@ const WaitlistForm = () => {
       }
 
       setStatus("success");
+
+      // Update URL so Facebook Event Setup Tool can detect a URL change easily
+      window.history.pushState(null, '', '?signup=success');
+
+      // Track Meta Pixel Event explicitly on actual success
+      trackStandardEvent('Lead', {
+        content_name: 'Waitlist Signup',
+      });
     } catch (error) {
       setStatus("error");
       setErrorMessage(error?.message ?? "Network error");
@@ -187,8 +192,8 @@ const WaitlistForm = () => {
         type="submit"
         disabled={status === "submitting"}
         className={`w-full rounded-xl px-6 py-4 text-base font-semibold text-primary-foreground transition-all hover:shadow-lg hover:shadow-primary/25 ${status === "submitting"
-            ? "bg-primary/70 cursor-not-allowed"
-            : "bg-primary hover:bg-primary-dark"
+          ? "bg-primary/70 cursor-not-allowed"
+          : "bg-primary hover:bg-primary-dark"
           }`}
       >
         {status === "submitting" ? "Submitting..." : "Join the Waitlist"}
