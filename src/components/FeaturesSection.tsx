@@ -20,7 +20,7 @@ const FeaturesSection = () => {
             Everything you need for faith-centered social engagement.
           </p>
         </div>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
           {features.map(({ icon: Icon, title, description }) => (
             <div
               key={title}
