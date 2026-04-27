@@ -39,7 +39,7 @@ const WaitlistForm = ({ simplified = false }: WaitlistFormProps) => {
         },
         body: JSON.stringify({
           email: data.email,
-          name: data.fullName || "",
+          name: data.firstName || "",
         }),
       });
 
@@ -132,12 +132,12 @@ const WaitlistForm = ({ simplified = false }: WaitlistFormProps) => {
 
       {!simplified && (
         <div>
-          <label htmlFor="fullName" className="block text-sm font-medium text-foreground mb-1.5">
+          <label htmlFor="firstName" className="block text-sm font-medium text-foreground mb-1.5">
             Full Name
           </label>
           <input
-            id="fullName"
-            name="fullName"
+            id="firstName"
+            name="firstName"
             type="text"
             maxLength={100}
             className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-shadow duration-200"
