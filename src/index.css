@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,25 +7,25 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 282 64% 12%;
+    --foreground: 288 11% 9%;
 
     --card: 0 0% 100%;
-    --card-foreground: 282 64% 12%;
+    --card-foreground: 288 11% 9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 282 64% 12%;
+    --popover-foreground: 288 11% 9%;
 
-    --primary: 282 64% 35%;
+    --primary: 288 11% 9%;
     --primary-foreground: 0 0% 100%;
-    --primary-dark: 284 65% 28%;
-    --primary-light: 282 51% 46%;
-    --primary-tint: 279 48% 89%;
+    --primary-dark: 300 11% 6%;
+    --primary-light: 300 7% 18%;
+    --primary-tint: 300 8% 95%;
 
-    --secondary: 279 48% 89%;
-    --secondary-foreground: 282 64% 12%;
+    --secondary: 300 8% 95%;
+    --secondary-foreground: 288 11% 9%;
 
-    --muted: 280 20% 96%;
-    --muted-foreground: 280 10% 46%;
+    --muted: 300 8% 96%;
+    --muted-foreground: 300 5% 38%;
 
     --accent: 37 100% 33%;
     --accent-foreground: 0 0% 100%;
@@ -34,45 +34,46 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 280 20% 90%;
-    --input: 280 20% 90%;
-    --ring: 282 64% 35%;
+    --border: 300 7% 88%;
+    --input: 300 7% 88%;
+    --ring: 288 11% 9%;
 
     --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 282 64% 35%;
+    --sidebar-primary: 288 11% 9%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 279 48% 89%;
-    --sidebar-accent-foreground: 282 64% 12%;
-    --sidebar-border: 280 20% 90%;
-    --sidebar-ring: 282 64% 35%;
+    --sidebar-accent: 300 8% 95%;
+    --sidebar-accent-foreground: 288 11% 9%;
+    --sidebar-border: 300 7% 88%;
+    --sidebar-ring: 288 11% 9%;
 
-    --font-heading: 'DM Serif Display', serif;
-    --font-body: 'Inter', sans-serif;
+    --font-heading: 'Roboto', sans-serif;
+    --font-body: 'Roboto', sans-serif;
+    --font-helvetica: 'Helvetica', Arial, sans-serif;
   }
 
   .dark {
-    --background: 282 64% 4%;
+    --background: 300 11% 8%;
     --foreground: 280 20% 96%;
-    --card: 282 50% 8%;
+    --card: 300 10% 12%;
     --card-foreground: 280 20% 96%;
-    --popover: 282 50% 8%;
+    --popover: 300 10% 12%;
     --popover-foreground: 280 20% 96%;
-    --primary: 282 51% 46%;
+    --primary: 288 11% 9%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 282 30% 15%;
+    --secondary: 300 8% 16%;
     --secondary-foreground: 280 20% 96%;
-    --muted: 282 30% 15%;
-    --muted-foreground: 280 15% 60%;
+    --muted: 300 8% 16%;
+    --muted-foreground: 300 8% 68%;
     --accent: 38 77% 45%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 100%;
-    --border: 282 30% 18%;
-    --input: 282 30% 18%;
-    --ring: 282 51% 46%;
+    --border: 300 8% 18%;
+    --input: 300 8% 18%;
+    --ring: 300 8% 68%;
   }
 }
 
