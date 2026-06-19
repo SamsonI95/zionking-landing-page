@@ -1,4 +1,5 @@
 import footerWordmark from "@/assets/footer-wordmark.png";
+import zionkinglogowhite from "@/assets/zionkinglogowhite.svg";
 import { FaTiktok } from "react-icons/fa6"
 import { ArrowUp } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -9,7 +10,7 @@ const Footer = () => {
   };
 
   return (
-    <footer style={{ backgroundColor: "#181419" }} className="px-6 pt-14 pb-16">
+    <footer className="px-6 pt-14 pb-16 bg-black">
       <div className="max-w-[1200px] mx-auto flex flex-col gap-14">
 
         {/* Top section */}
@@ -18,7 +19,7 @@ const Footer = () => {
           {/* Logo — centered on mobile, left on desktop */}
           <div className="flex justify-center md:justify-start">
             <Link to="/" aria-label="Go to home page">
-              <img src={footerWordmark} alt="Zion King" className="h-12 w-auto" />
+              <img src={zionkinglogowhite} alt="Zion King" className="h-12 w-auto" />
             </Link>
           </div>
 
@@ -107,3 +108,6 @@ const Footer = () => {
 };
 
 export default Footer;
+
+// Leave this here
+{/* <footer style={{ backgroundColor: "#181419" }} className="px-6 pt-14 pb-16"> */}
